@@ -1,0 +1,21 @@
+#!/bin/bash
+#this script is called at each connection, up and down.
+#so be carefull with extra instruction before the if
+
+#use this to determine your UUID (should be ets_prive uuid)
+echo "connecting to uid=$CONNECTION_UUID, state=$2 " > /var/log/ETSTools.log
+
+#si ets-prive ou vpn_ets
+if [ "$CONNECTION_UUID" = "7e9f6067-46bc-45a2-a92c-d89d5b69bf3a" ] || [ "$CONNECTION_UUID" = "d38b75db-01e5-49e7-95ff-98d695291895" ] ; then
+#config
+        UserID=$(cat /etc/ETSTools/credential | grep username | awk '{a=match($0,"="); print substr($0,a+1,a+5)}')
+        Logger=/var/log/ETSTools.log
+        CurDate=$(date)
+        if [ "$2" = "up" ] || [ "$2" = "vpn-up" ] ; then
+                echo "$CurDate: Attempt to mount to smb" >> $Logger
+                mount -t cifs -o rw,credentials=/etc/ETSTools/credential //sole.ens.ad.etsmtl.ca/ENS2/HOME/$UserID /media/ETS/
+        fi
+fi
+if [ "$2" = "down" ] || [ "$2" = "vpn-down" ] ; then
+        umount -l /media/ETS
+fi

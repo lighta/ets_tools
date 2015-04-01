@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#installing vpn-client and gui
+yum install -y openconnect NetworkManager-openconnect 

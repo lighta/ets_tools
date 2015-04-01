@@ -1,0 +1,12 @@
+[openconnect]
+Description=ETS VPN
+Host=accesvpn.etsmtl.ca
+CACert=(null)
+Proxy=
+CSDEnable=0
+CSDWrapper=
+UserCertificate=(null)
+PrivateKey=(null)
+FSID=0
+StokenSource=disabled
+StokenString=
